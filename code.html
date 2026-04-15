@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NeuralDigit - AI Recognition Engine</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;family=Inter:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#ff95e5",
+                    "on-tertiary-container": "#69005d",
+                    "primary-dim": "#6063ee",
+                    "tertiary-dim": "#ff59e3",
+                    "inverse-surface": "#f9f9ff",
+                    "error-container": "#8a1632",
+                    "secondary-fixed-dim": "#00ebf5",
+                    "surface-container-lowest": "#000000",
+                    "background": "#0b0e14",
+                    "on-error-container": "#ff97a3",
+                    "surface-tint": "#9093ff",
+                    "surface-dim": "#0b0e14",
+                    "on-primary-container": "#000000",
+                    "on-error": "#490013",
+                    "primary-container": "#7073ff",
+                    "on-background": "#e0e5f5",
+                    "surface-variant": "#202631",
+                    "on-primary-fixed-variant": "#2d2cbd",
+                    "secondary-dim": "#00cdd5",
+                    "on-secondary-container": "#00b6bd",
+                    "secondary-container": "#002b2d",
+                    "on-tertiary-fixed": "#42003a",
+                    "outline": "#707583",
+                    "on-primary": "#080079",
+                    "secondary": "#00dce5",
+                    "surface-container-low": "#10131b",
+                    "on-surface-variant": "#a5abba",
+                    "primary": "#9093ff",
+                    "on-tertiary": "#79006c",
+                    "surface-bright": "#262c39",
+                    "error-dim": "#c8475d",
+                    "primary-fixed-dim": "#aaacff",
+                    "outline-variant": "#424855",
+                    "surface-container": "#151a22",
+                    "on-secondary-fixed-variant": "#00666a",
+                    "inverse-on-surface": "#52555c",
+                    "error": "#fd6f85",
+                    "surface-container-highest": "#202631",
+                    "surface": "#0b0e14",
+                    "on-secondary": "#00484b",
+                    "secondary-fixed": "#63f7ff",
+                    "on-surface": "#e0e5f5",
+                    "primary-fixed": "#babbff",
+                    "surface-container-high": "#1b202a",
+                    "on-secondary-fixed": "#00474a",
+                    "tertiary-fixed": "#ff95e5",
+                    "tertiary": "#fface8",
+                    "on-tertiary-fixed-variant": "#78006b",
+                    "on-primary-fixed": "#0c0090",
+                    "tertiary-fixed-dim": "#ff7ae4",
+                    "inverse-primary": "#494bd7"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(27, 32, 42, 0.6);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+        }
+        .canvas-grid {
+            background-image: radial-gradient(circle, rgba(144, 147, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .neon-glow-primary {
+            box-shadow: 0 0 15px rgba(144, 147, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-[#10131b] flex flex-col py-8 px-4 z-50 shadow-[20px_0px_50px_rgba(0,0,0,0.5)] font-['Space_Grotesk']">
+<div class="mb-10 px-4">
+<h1 class="text-lg font-black text-indigo-400 tracking-tighter">Synthetic Ether</h1>
+<p class="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-bold">AI Recognition Engine</p>
+</div>
+<button class="mb-8 w-full py-4 rounded-xl bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold text-sm flex items-center justify-center gap-2 transition-transform active:scale-95">
+<span class="material-symbols-outlined text-sm">add</span>
+            New Canvas
+        </button>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-indigo-500/10 text-indigo-400 border-r-2 border-indigo-400 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">draw</span>
+<span class="font-medium">Workspace</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 hover:bg-[#1b202a] transition-all duration-300" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="font-medium">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 hover:bg-[#1b202a] transition-all duration-300" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-medium">History</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 hover:bg-[#1b202a] transition-all duration-300" href="#">
+<span class="material-symbols-outlined">model_training</span>
+<span class="font-medium">Model Training</span>
+</a>
+</nav>
+<div class="mt-auto space-y-2 pt-6 border-t border-outline-variant/10">
+<a class="flex items-center gap-3 px-4 py-2 text-slate-500 hover:text-on-background transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">settings</span>
+<span class="text-sm">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-slate-500 hover:text-error transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">logout</span>
+<span class="text-sm">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Top AppBar -->
+<header class="fixed top-0 left-64 right-0 h-16 bg-[#0b0e14] flex justify-between items-center px-8 z-40 font-['Space_Grotesk']">
+<div class="flex items-center gap-2">
+<span class="text-xl font-bold tracking-tighter text-indigo-400">NeuralDigit</span>
+<span class="text-[10px] px-2 py-0.5 rounded-full bg-secondary-container text-secondary font-bold">v4.2.0</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4 text-slate-400">
+<button class="hover:bg-[#1b202a] p-2 rounded-lg transition-colors"><span class="material-symbols-outlined">help</span></button>
+<button class="hover:bg-[#1b202a] p-2 rounded-lg transition-colors"><span class="material-symbols-outlined">settings</span></button>
+</div>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-primary/20">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="Close-up portrait of a professional male in a modern tech office with soft cinematic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1Mi8fVlPt8GZ0Z0LmmCoZs9mCuQuntejFnrDXmcfBC_NSXeAHK1GxaRPZDxAxcMw_oXBSZItek0FVD1wT0viKbSWdZGiT3LUP6l6vuGyykfn1rqzJM4Y1g_oBQIJoJc2f3eFp854J2VMfvqsrWtQUil9vSycdZt3TvKRco3HAP5W9loQUKpiQKaAyGHf668nHcpw5fEKudfmBa7EbejEFyy49ceE2xjLYVg9KMLTy21SBjYFNpw3SqpZV3cS3vbjz25aOi5zcXwLU"/>
+</div>
+</div>
+</header>
+<!-- Main Content Wrapper -->
+<main class="ml-64 pt-16 min-h-screen flex">
+<!-- Central Area: Drawing Canvas -->
+<section class="flex-1 p-8 flex flex-col gap-8">
+<div class="flex items-baseline justify-between">
+<div>
+<h2 class="text-3xl font-headline font-bold text-on-surface">Neural Canvas</h2>
+<p class="text-on-surface-variant text-sm mt-1">Input your handwritten digit for real-time inference.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-2.5 rounded-xl bg-surface-variant text-on-surface font-semibold text-sm hover:bg-surface-bright transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">auto_fix_high</span>
+                        Optimize Trace
+                    </button>
+</div>
+</div>
+<!-- Drawing Card -->
+<div class="flex-1 glass-panel rounded-3xl relative overflow-hidden flex flex-col p-6 shadow-2xl">
+<div class="absolute inset-0 canvas-grid opacity-20 pointer-events-none"></div>
+<div class="relative flex-1 bg-surface-container-lowest/50 rounded-2xl border border-outline-variant/5 flex items-center justify-center overflow-hidden">
+<!-- This would be the interactive canvas area -->
+<canvas id="digitCanvas" width="480" height="480" class="cursor-crosshair"></canvas>
+<div id="canvasPlaceholder" class="absolute inset-0 flex items-center justify-center pointer-events-none transition-opacity duration-300">
+<div class="text-center">
+<span class="material-symbols-outlined text-6xl text-primary/20 mb-4 block">gesture</span>
+<p class="text-slate-500 font-medium">Draw Digit Here</p>
+<p class="text-slate-600 text-xs mt-1 italic">MNIST-v2 Protocol Active</p>
+</div>
+</div>
+</div>
+<div class="mt-6 flex justify-between items-center">
+<div class="flex gap-2">
+<div id="statusDot" class="w-2 h-2 rounded-full bg-secondary animate-pulse"></div>
+<span id="statusText" class="text-[10px] font-bold text-secondary uppercase tracking-widest">Awaiting Input</span>
+</div>
+<div class="flex gap-4">
+<button id="clearBtn" class="px-8 py-3 rounded-xl bg-surface-variant text-on-surface font-bold hover:bg-surface-bright transition-all active:scale-95">
+                            Clear
+                        </button>
+<button id="submitBtn" class="px-10 py-3 rounded-xl bg-gradient-to-r from-primary to-primary-container text-on-primary font-black shadow-lg shadow-primary/20 hover:opacity-90 transition-all active:scale-95">
+                            Submit Recognition
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Panel: Recognition & Analytics -->
+<aside class="w-96 p-8 bg-surface-container-low/50 backdrop-blur-sm flex flex-col gap-6">
+<!-- Result Card -->
+<div class="glass-panel p-6 rounded-3xl border border-outline-variant/10">
+<h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-6">Recognition Result</h3>
+<div class="flex flex-col items-center py-8">
+<div class="relative">
+<div class="absolute inset-0 bg-primary/20 blur-3xl rounded-full"></div>
+<div class="relative text-[120px] font-headline font-black leading-none text-on-surface drop-shadow-[0_0_15px_rgba(144,147,255,0.4)]">
+                            5
+                        </div>
+</div>
+<div class="mt-4 flex flex-col items-center">
+<span class="text-secondary font-headline text-3xl font-bold">98.5%</span>
+<span class="text-slate-500 text-xs font-medium uppercase tracking-tighter">Confidence Score</span>
+</div>
+</div>
+<div class="space-y-4 mt-4">
+<div class="flex justify-between text-xs font-medium mb-1">
+<span class="text-on-surface-variant">Processing Accuracy</span>
+<span class="text-on-surface">Optimal</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-secondary to-primary-dim w-[98.5%] rounded-full shadow-[0_0_10px_rgba(0,220,229,0.4)]"></div>
+</div>
+</div>
+</div>
+<!-- Heatmap Visualization -->
+<div class="glass-panel flex-1 p-6 rounded-3xl border border-outline-variant/10 flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest">Neural Heatmap</h3>
+<span class="material-symbols-outlined text-slate-500 text-sm">info</span>
+</div>
+<div class="flex-1 relative rounded-2xl overflow-hidden bg-surface-container-lowest">
+<img alt="Neural Heatmap" class="w-full h-full object-cover opacity-80 mix-blend-screen" data-alt="Abstract colorful visualization of neural network activity with vibrant gradients of purple, blue, and cyan glowing points" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbSqHK1-ACyhU0w5L-hg17yi4wzzwcCQVXHYbA88o2wNHdM1YJjlFAOv8p0ScW2blnY-LVXeiGMkojQPdPKKJ_4mr08CGLuuBhB9gsmw_rRGxz7c6j4Fo-MMRl5motqBcZQzBIEij3mZVm3vmCe3hmJbDtwWK9tVQbvoGEKpYk8_xVQ0jA_ENs5QToIest__I7gLcyN887QRm50Beib-lOwsGpIjPqeGLgaUBWFOowOzYxPIDMX76sfDQNB-uHe7NRky_5C2Bj2WUk"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest to-transparent"></div>
+<!-- Insight Overlay -->
+<div class="absolute bottom-4 left-4 right-4">
+<div class="bg-tertiary-container/10 border border-tertiary-container/20 p-3 rounded-xl backdrop-blur-md">
+<div class="flex items-center gap-2 mb-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span>
+<span class="text-[10px] font-bold text-tertiary uppercase">AI Insight</span>
+</div>
+<p class="text-[11px] text-on-surface leading-tight">Focus detected on upper-curve segment. Spatial features strongly align with '5' architecture.</p>
+</div>
+</div>
+</div>
+<div class="mt-6 space-y-3">
+<div class="flex justify-between items-center px-2">
+<span class="text-xs text-slate-500">Latency</span>
+<span class="text-xs font-mono text-secondary">14ms</span>
+</div>
+<div class="flex justify-between items-center px-2">
+<span class="text-xs text-slate-500">Feature Maps</span>
+<span class="text-xs font-mono text-secondary">128 Depth</span>
+</div>
+</div>
+</div>
+</aside>
+</main>
+<!-- FAB Action (Hidden per suppression rule on Dashboards often, but here it fits as a secondary utility) -->
+<!-- Not rendering FAB per suppression logic for detail-heavy dashboard screen -->
+<script>
+    const canvas = document.getElementById('digitCanvas');
+    const ctx = canvas.getContext('2d');
+    const clearBtn = document.getElementById('clearBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    const placeholder = document.getElementById('canvasPlaceholder');
+    const resultDisplay = document.querySelector('.relative.text-\\[120px\\]');
+    const confidenceDisplay = document.querySelector('.text-secondary.font-headline.text-3xl');
+    const progressBar = document.querySelector('.h-full.bg-gradient-to-r.from-secondary.to-primary-dim');
+    const statusText = document.getElementById('statusText');
+    const statusDot = document.getElementById('statusDot');
+
+    let isDrawing = false;
+    let hasDrawn = false;
+
+    ctx.lineWidth = 24;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.strokeStyle = 'white';
+
+    function startDrawing(e) {
+        isDrawing = true;
+        hasDrawn = true;
+        placeholder.style.opacity = '0';
+        statusText.innerText = 'Neural Processing...';
+        draw(e);
+    }
+
+    function stopDrawing() {
+        isDrawing = false;
+        ctx.beginPath();
+    }
+
+    function draw(e) {
+        if (!isDrawing) return;
+
+        const rect = canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        ctx.lineTo(x, y);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+    }
+
+    canvas.addEventListener('mousedown', startDrawing);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', stopDrawing);
+    canvas.addEventListener('mouseout', stopDrawing);
+
+    clearBtn.addEventListener('click', () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        placeholder.style.opacity = '1';
+        hasDrawn = false;
+        statusText.innerText = 'Awaiting Input';
+        statusDot.classList.add('bg-secondary');
+        statusDot.classList.remove('bg-error');
+    });
+
+    submitBtn.addEventListener('click', async () => {
+        if (!hasDrawn) {
+            statusText.innerText = 'Draw something first!';
+            statusDot.classList.remove('bg-secondary');
+            statusDot.classList.add('bg-error');
+            return;
+        }
+
+        const dataURL = canvas.toDataURL('image/png');
+        statusText.innerText = 'Recognizing...';
+
+        try {
+            const response = await fetch('http://localhost:8000/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ image: dataURL }),
+            });
+
+            if (!response.ok) throw new Error('Prediction failed');
+
+            const result = await response.json();
+
+            // Update UI
+            resultDisplay.innerText = result.prediction;
+            confidenceDisplay.innerText = (result.confidence * 100).toFixed(1) + '%';
+            progressBar.style.width = (result.confidence * 100) + '%';
+
+            statusText.innerText = 'Recognition Complete';
+            statusDot.classList.add('bg-secondary');
+            statusDot.classList.remove('bg-error');
+        } catch (error) {
+            console.error(error);
+            statusText.innerText = 'Error: ' + error.message;
+            statusDot.classList.remove('bg-secondary');
+            statusDot.classList.add('bg-error');
+        }
+    });
+
+</script>
+</body></html>
